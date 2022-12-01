@@ -1,4 +1,3 @@
-// @ts-nocheck
 export function isValidCpf(rawCpf: string): boolean {
   if (!rawCpf) return false;
   const cleanCpf = parseCpfStringToOnlyDigits(rawCpf);
@@ -15,7 +14,7 @@ function calculateCpfVerifyDigit(cpf: string, factor: 10 | 11) {
   let sum = 0;
   for (const digit of cpf) {
     if (factor > 1) {
-      sum += digit * factor;
+      sum += +digit * factor;
       factor--;
     };
   }
@@ -28,11 +27,11 @@ function getVerifyDigits(cpf: string): string {
   return cpf.slice(9);
 }
 
-function isInvalidLength(cpf: number): boolean {
+function isInvalidLength(cpf: string): boolean {
   return cpf.length !== 11;
 }
 
-function hasAllSameDigits(cpf: number): boolean {
+function hasAllSameDigits(cpf: string): boolean {
   const [firstDigit] = cpf;
   return [...cpf].every(digit => digit === firstDigit);
 }
